@@ -1,0 +1,93 @@
+{
+  "tasker_project": {
+    "name": "COC_Auto_Attack_Poco_X3",
+    "device": {
+      "model": "Poco X3 NFC",
+      "android": 12,
+      "screen_width": 1080,
+      "screen_height": 2400,
+      "density": 420
+    },
+    "folders": [
+      "/sdcard/Tasker/",
+      "/sdcard/Tasker/Logs/",
+      "/sdcard/Tasker/COC_Screenshots/",
+      "/sdcard/Tasker/Backups/"
+    ],
+    "variables": [
+      {"name": "%coc_enabled", "value": "1"},
+      {"name": "%coc_state", "value": "idle"},
+      {"name": "%coc_attacks_today", "value": "0"},
+      {"name": "%coc_gold", "value": "0"},
+      {"name": "%coc_elixir", "value": "0"},
+      {"name": "%coc_de", "value": "0"}
+    ],
+    "profiles": [
+      {
+        "name": "COC_App_Open",
+        "type": "App",
+        "app_package": "com.supercell.clashofclans",
+        "task": "COC_OnOpen"
+      }
+    ],
+    "tasks": [
+      {
+        "name": "COC_OnOpen",
+        "actions": [
+          {"type": "log", "text": "[%TIME] COC App Opened", "file": "/sdcard/Tasker/Logs/coc_app_launch.log"},
+          {"type": "wait", "ms": 3000},
+          {"type": "variable_set", "name": "%coc_state", "value": "opened"},
+          {"type": "screenshot", "path": "/sdcard/Tasker/COC_Screenshots/current.png"},
+          {"type": "perform_task", "task": "COC_ClosePopups"},
+          {"type": "perform_task", "task": "COC_CollectResources"},
+          {"type": "perform_task", "task": "COC_StartAttack"}
+        ]
+      },
+      {
+        "name": "COC_ClosePopups",
+        "actions": [
+          {"type": "log", "text": "[%TIME] Closing popup...", "file": "/sdcard/Tasker/Logs/coc_app_launch.log"},
+          {"type": "wait", "ms": 1000},
+          {"type": "tap", "x": 450, "y": 2100, "duration": 150},
+          {"type": "wait", "ms": 1000},
+          {"type": "tap", "x": 540, "y": 1800, "duration": 150},
+          {"type": "wait", "ms": 1000}
+        ]
+      },
+      {
+        "name": "COC_CollectResources",
+        "actions": [
+          {"type": "log", "text": "[%TIME] Collecting resources...", "file": "/sdcard/Tasker/Logs/coc_app_launch.log"},
+          {"type": "tap", "x": 150, "y": 350, "duration": 150},
+          {"type": "wait", "ms": 300},
+          {"type": "tap", "x": 930, "y": 350, "duration": 150},
+          {"type": "wait", "ms": 300},
+          {"type": "tap", "x": 540, "y": 1500, "duration": 150},
+          {"type": "wait", "ms": 500}
+        ]
+      },
+      {
+        "name": "COC_StartAttack",
+        "actions": [
+          {"type": "log", "text": "[%TIME] Checking attack conditions...", "file": "/sdcard/Tasker/Logs/coc_app_launch.log"},
+          {"type": "if", "condition": "%coc_enabled ~ 1", "then": [
+            {"type": "tap", "x": 540, "y": 2330, "duration": 150},
+            {"type": "wait", "ms": 3000},
+            {"type": "tap", "x": 540, "y": 2200, "duration": 150},
+            {"type": "wait", "ms": 2000},
+            {"type": "tap", "x": 540, "y": 1800, "duration": 150},
+            {"type": "variable_set", "name": "%coc_state", "value": "attacking"},
+            {"type": "variable_add", "name": "%coc_attacks_today", "value": "1"}
+          ]}
+        ]
+      }
+    ],
+    "notes": [
+      "1. Buka Tasker dan import file ini sesuai format projek Tasker Anda.",
+      "2. Atau gunakan ini sebagai referensi manual action-by-action di aplikasi Tasker.",
+      "3. Jika koordinat tap tidak akurat, sesuaikan X/Y sesuai hasil test layar perangkat.",
+      "4. Gunakan log file untuk debugging: /sdcard/Tasker/Logs/coc_app_launch.log",
+      "5. Untuk proyek Tasker asli, gunakan UI Tasker dan buat task/action sesuai daftar di atas."
+    ]
+  }
+}
