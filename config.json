@@ -1,59 +1,163 @@
 {
-  "app": {
-    "name": "COC Auto Attack Tasker",
-    "version": "1.0.0",
-    "debug": false,
-    "log_level": "info"
+  "tasker": {
+    "profile_name": "COC Auto Attack",
+    "enabled": true,
+    "priority": 10
   },
-  "account": {
-    "username": "your_coc_username",
-    "password": "your_coc_password",
-    "server": "us",
-    "device_name": "Android Device"
+  "game": {
+    "package_name": "com.supercell.clashofclans",
+    "main_activity": ".GameActivity"
   },
-  "device": {
-    "screen_width": 1080,
-    "screen_height": 2400,
+  "login": {
+    "method": "google",
+    "email": "your_google_email@gmail.com",
+    "password": "your_google_password",
+    "supercell_id": false,
+    "auto_login": true,
+    "login_timeout": 30
+  },
+  "screen": {
+    "width": 1080,
+    "height": 2400,
     "density": 420,
-    "orientation": "portrait",
-    "lock_screen": false
+    "screenshot_enabled": true,
+    "screenshot_interval": 2,
+    "display_time_format": "%H:%M:%S"
+  },
+  "detection": {
+    "image_threshold": 0.85,
+    "ocr_enabled": false,
+    "tap_offset_x": 0,
+    "tap_offset_y": 0,
+    "wait_after_tap": 0.5
   },
   "attack": {
-    "mode": "normal",
+    "enabled": true,
+    "attack_mode": "farm",
     "max_attacks_per_day": 20,
-    "target_min_trophies": 1500,
-    "target_max_trophies": 2200,
-    "preferred_layout": "farm",
-    "skip_if_full_storage": true,
-    "use_barracks": true,
-    "use_dark_elixir": false
+    "attack_interval_minutes": 45,
+    "skip_full_storage": true,
+    "skip_shield": true,
+    "skip_maintenance": true
   },
-  "automation": {
-    "start_delay_seconds": 2,
-    "retry_attempts": 3,
-    "check_interval_seconds": 5,
-    "timeout_seconds": 30,
-    "restart_after_crash": true
+  "target_selection": {
+    "min_gold": 300000,
+    "min_elixir": 300000,
+    "min_dark_elixir": 1000,
+    "min_trophies": 1200,
+    "max_trophies": 2500,
+    "avoid_clan_castles": false,
+    "avoid_infernos": true,
+    "prefer_empty_bases": false
   },
-  "targets": [
-    {
-      "name": "farm_target_1",
-      "village_type": "home",
-      "base_id": "example_base_id",
-      "priority": 1,
-      "enabled": true
-    }
-  ],
+  "army": {
+    "barracks_1": {
+      "troop": "barbarian",
+      "quantity": 30
+    },
+    "barracks_2": {
+      "troop": "archer",
+      "quantity": 30
+    },
+    "barracks_3": {
+      "troop": "goblin",
+      "quantity": 10
+    },
+    "barracks_4": {
+      "troop": "giant",
+      "quantity": 5
+    },
+    "spell_factory": {
+      "spell": "healing",
+      "quantity": 2
+    },
+    "use_heroes": true,
+    "heroes_level_min": 20
+  },
+  "attack_strategy": {
+    "strategy_type": "barch_farm",
+    "deployment_delay": 0.2,
+    "spell_usage": "optimized",
+    "retreat_on_low_hp": true,
+    "retreat_hp_percent": 30
+  },
+  "actions": {
+    "collect_resources": true,
+    "claim_rewards": true,
+    "donate_troops": false,
+    "request_troops": true,
+    "upgrade_troops": false,
+    "visit_clan": true
+  },
+  "scheduler": {
+    "enabled": true,
+    "start_time": "08:00",
+    "end_time": "23:00",
+    "active_days": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "pause_on_maintenance": true,
+    "maintenance_check_interval": 30
+  },
+  "tasker_actions": {
+    "use_intents": true,
+    "intent_package": "com.supercell.clashofclans",
+    "shell_commands": true,
+    "http_requests": false
+  },
   "notifications": {
-    "telegram_enabled": false,
-    "telegram_bot_token": "",
-    "telegram_chat_id": "",
-    "email_enabled": false,
-    "email_address": ""
+    "enabled": true,
+    "notification_channel": "coc_auto_attack",
+    "sound_enabled": false,
+    "vibrate_enabled": true,
+    "log_attacks": true,
+    "telegram": {
+      "enabled": false,
+      "bot_token": "",
+      "chat_id": ""
+    },
+    "discord": {
+      "enabled": false,
+      "webhook_url": ""
+    }
+  },
+  "safety": {
+    "random_delays": true,
+    "min_delay": 2,
+    "max_delay": 8,
+    "human_like_behavior": true,
+    "vary_army_composition": false,
+    "check_for_updates": true,
+    "anti_ban_mode": false,
+    "session_timeout": 7200
+  },
+  "debugging": {
+    "debug_mode": false,
+    "verbose_logging": false,
+    "save_screenshots": true,
+    "screenshot_dir": "/sdcard/Tasker/COC_Screenshots/",
+    "log_file": "/sdcard/Tasker/coc_auto_attack.log",
+    "log_level": "INFO"
+  },
+  "advanced": {
+    "use_accessibility_service": true,
+    "shell_timeout": 5000,
+    "network_timeout": 10000,
+    "retry_attempts": 3,
+    "retry_delay": 2,
+    "plugin_support": true,
+    "tasker_scene_overlay": false
   },
   "paths": {
-    "log_dir": "logs",
-    "screenshot_dir": "screenshots",
-    "output_dir": "output"
+    "tasker_dir": "/sdcard/Tasker/",
+    "coc_dir": "/sdcard/Android/data/com.supercell.clashofclans/",
+    "project_file": "COC_Auto_Attack.tsk.xml",
+    "config_backup_dir": "/sdcard/Tasker/Backups/"
   }
 }
