@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<automation version="1.0">
+  <project name="COC_Auto_Attack_Poco_X3">
+    <description>Clash of Clans Auto Attack Bot untuk Poco X3 NFC</description>
+    <device model="Poco X3 NFC" android="12" screen_width="1080" screen_height="2400" />
+    
+    <!-- Profile: Trigger saat aplikasi COC dibuka -->
+    <trigger type="app_launch" package="com.supercell.clashofclans">
+      <action>execute_flow_coc_onopen</action>
+    </trigger>
+
+    <!-- Flow 1: COC_OnOpen - Main Flow -->
+    <flow name="flow_coc_onopen" description="Jalankan saat app COC dibuka">
+      <step type="delay" milliseconds="999" description="Wait 999ms untuk app load" />
+      <step type="delay" milliseconds="999" description="Wait 999ms tambahan" />
+      <step type="screenshot" path="/sdcard/Microdroid/COC_Screenshots/current.png" description="Ambil screenshot untuk debug" />
+      <step type="delay" milliseconds="500" description="Wait 500ms sebelum tutup popup" />
+      <step type="execute_flow" name="flow_coc_closepopups" description="Jalankan flow tutup popup" />
+      <step type="delay" milliseconds="300" description="Wait 300ms" />
+      <step type="execute_flow" name="flow_coc_collectresources" description="Jalankan flow kumpul resource" />
+      <step type="delay" milliseconds="300" description="Wait 300ms" />
+      <step type="execute_flow" name="flow_coc_startattack" description="Jalankan flow attack" />
+    </flow>
+
+    <!-- Flow 2: COC_ClosePopups - Tutup Popup -->
+    <flow name="flow_coc_closepopups" description="Tutup popup saat game dibuka">
+      <step type="delay" milliseconds="999" description="Wait 999ms" />
+      <step type="tap" x="450" y="2100" duration="150" description="Tap Later/Close button" />
+      <step type="delay" milliseconds="999" description="Wait 999ms" />
+      <step type="tap" x="540" y="1800" duration="150" description="Tap OK button" />
+      <step type="delay" milliseconds="299" description="Wait 299ms" />
+    </flow>
+
+    <!-- Flow 3: COC_CollectResources - Kumpul Resource -->
+    <flow name="flow_coc_collectresources" description="Kumpulkan resource dari collector">
+      <step type="tap" x="150" y="350" duration="150" description="Tap Gold Collector (atas kiri)" />
+      <step type="delay" milliseconds="299" description="Wait 299ms" />
+      <step type="tap" x="930" y="350" duration="150" description="Tap Elixir Collector (atas kanan)" />
+      <step type="delay" milliseconds="299" description="Wait 299ms" />
+      <step type="tap" x="540" y="1500" duration="150" description="Tap Dark Elixir Collector (tengah)" />
+      <step type="delay" milliseconds="500" description="Wait 500ms" />
+    </flow>
+
+    <!-- Flow 4: COC_StartAttack - Mulai Attack -->
+    <flow name="flow_coc_startattack" description="Mulai proses attack otomatis">
+      <step type="tap" x="540" y="2330" duration="150" description="Tap Home/Battle Button" />
+      <step type="delay" milliseconds="999" description="Wait 999ms" />
+      <step type="tap" x="540" y="2200" duration="150" description="Tap Find Opponent / Attack Button" />
+      <step type="delay" milliseconds="999" description="Wait 999ms" />
+      <step type="tap" x="540" y="1800" duration="150" description="Tap Confirm Attack" />
+      <step type="delay" milliseconds="500" description="Wait 500ms selesai" />
+    </flow>
+
+  </project>
+
+  <!-- Koordinat Referensi untuk Poco X3 NFC (1080x2400) -->
+  <coordinates>
+    <coordinate name="Gold Collector" x="150" y="350" description="Kumpul emas (atas kiri)" />
+    <coordinate name="Elixir Collector" x="930" y="350" description="Kumpul elixir (atas kanan)" />
+    <coordinate name="Dark Elixir Collector" x="540" y="1500" description="Kumpul dark elixir (tengah)" />
+    <coordinate name="Close Popup" x="450" y="2100" description="Tutup popup/Later button" />
+    <coordinate name="OK Button" x="540" y="1800" description="Tombol OK/Confirm" />
+    <coordinate name="Battle Button" x="540" y="2330" description="Tombol Battle/Home (bawah)" />
+    <coordinate name="Attack Button" x="540" y="2200" description="Tombol Attack/Find Opponent" />
+    <coordinate name="Confirm Attack" x="540" y="1800" description="Tombol Confirm Attack" />
+  </coordinates>
+
+  <!-- Settings -->
+  <settings>
+    <setting name="autostart_on_app_open" value="true" />
+    <setting name="repeat_attack" value="false" />
+    <setting name="screenshot_on_error" value="true" />
+    <setting name="log_actions" value="true" />
+    <setting name="screen_timeout_disable" value="false" />
+  </settings>
+
+</automation>
