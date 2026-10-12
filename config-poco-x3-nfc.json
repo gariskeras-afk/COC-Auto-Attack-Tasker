@@ -1,0 +1,408 @@
+{
+  "device_info": {
+    "device_name": "Poco X3 NFC",
+    "model": "M2007J20CG",
+    "android_version": 12,
+    "android_sdk": 31,
+    "screen_width": 1080,
+    "screen_height": 2400,
+    "screen_density": 420,
+    "dpi": 120,
+    "aspect_ratio": "9:20",
+    "screen_diagonal": "6.67 inches"
+  },
+
+  "app_launch": {
+    "enabled": true,
+    "trigger_on_app_open": true,
+    "app_package": "com.supercell.clashofclans",
+    "app_activity": ".GameActivity",
+    "launch_delay_ms": 3000,
+    "wait_for_load_complete": true,
+    "load_timeout_ms": 35000,
+    "use_activity_detection": true
+  },
+
+  "initialization": {
+    "check_login_status": true,
+    "auto_login": true,
+    "login_method": "google",
+    "google_email": "your_email@gmail.com",
+    "google_password": "your_password",
+    "login_timeout_ms": 20000,
+    "verify_game_loaded": true,
+    "check_for_updates": false,
+    "close_popups": true,
+    "enable_developer_options": true
+  },
+
+  "screen_coordinates_poco_x3": {
+    "comment": "Koordinat untuk Poco X3 NFC (1080x2400) - dikalibrasi",
+    "screen_center_x": 540,
+    "screen_center_y": 1200,
+    "screen_width": 1080,
+    "screen_height": 2400,
+    
+    "buttons": {
+      "home_button": {"x": 540, "y": 2330, "name": "Home/Battle Button"},
+      "attack_button": {"x": 540, "y": 2200, "name": "Attack/Find Opponent"},
+      "next_opponent": {"x": 990, "y": 1200, "name": "Next Opponent Arrow"},
+      "previous_opponent": {"x": 90, "y": 1200, "name": "Previous Opponent Arrow"},
+      "search_again": {"x": 540, "y": 2200, "name": "Search Again"},
+      "close_popup": {"x": 1000, "y": 150, "name": "Close Popup (X)"},
+      "ok_button": {"x": 540, "y": 1800, "name": "OK Button"},
+      "confirm_button": {"x": 800, "y": 1800, "name": "Confirm/Yes Button"},
+      "cancel_button": {"x": 300, "y": 1800, "name": "Cancel/No Button"},
+      "later_button": {"x": 450, "y": 2100, "name": "Later Button (Update)"}
+    },
+
+    "resources": {
+      "collect_gold": {"x": 150, "y": 350, "name": "Gold Collector"},
+      "collect_elixir": {"x": 930, "y": 350, "name": "Elixir Collector"},
+      "collect_de": {"x": 540, "y": 1500, "name": "Dark Elixir Collector"},
+      "gold_display": {"x": 200, "y": 50, "name": "Gold Amount"},
+      "elixir_display": {"x": 880, "y": 50, "name": "Elixir Amount"},
+      "de_display": {"x": 540, "y": 2370, "name": "Dark Elixir Amount"},
+      "trophies_display": {"x": 540, "y": 100, "name": "Trophies"}
+    },
+
+    "menu": {
+      "clan_button": {"x": 880, "y": 2330, "name": "Clan Button"},
+      "shop_button": {"x": 200, "y": 2330, "name": "Shop Button"},
+      "profile_button": {"x": 150, "y": 200, "name": "Profile Button"},
+      "settings_button": {"x": 970, "y": 200, "name": "Settings Button"},
+      "achievements_button": {"x": 540, "y": 2100, "name": "Achievements"}
+    },
+
+    "battle_deployment": {
+      "barracks_area": {"x": 150, "y": 2200, "name": "Barracks Deploy Area"},
+      "spell_area": {"x": 930, "y": 2200, "name": "Spell Area"},
+      "hero_area": {"x": 540, "y": 2200, "name": "Hero Area"},
+      "troops_panel": {"x": 540, "y": 2150, "name": "Troops Selection Panel"},
+      "deploy_button": {"x": 540, "y": 2350, "name": "Deploy Troops Button"}
+    },
+
+    "village_map": {
+      "center": {"x": 540, "y": 1200},
+      "top_left": {"x": 150, "y": 400},
+      "top_right": {"x": 930, "y": 400},
+      "bottom_left": {"x": 150, "y": 2000},
+      "bottom_right": {"x": 930, "y": 2000}
+    },
+
+    "attack_screen": {
+      "start_attack_button": {"x": 540, "y": 2200, "name": "Start/Confirm Attack"},
+      "cancel_attack_button": {"x": 200, "y": 2200, "name": "Cancel Attack"},
+      "retreat_button": {"x": 900, "y": 2200, "name": "Retreat Button"},
+      "attack_timer": {"x": 540, "y": 100, "name": "Attack Time Remaining"},
+      "victory_screen": {"x": 540, "y": 1200, "name": "Victory/Defeat Screen"}
+    }
+  },
+
+  "on_app_open_tasks": {
+    "task_1": {
+      "name": "WaitGameLoad",
+      "enabled": true,
+      "order": 1,
+      "wait_before_ms": 3000,
+      "timeout_ms": 30000,
+      "description": "Tunggu game fully load di Poco X3"
+    },
+    "task_2": {
+      "name": "DetectLoginScreen",
+      "enabled": true,
+      "order": 2,
+      "wait_before_ms": 1000,
+      "description": "Deteksi apakah perlu login"
+    },
+    "task_3": {
+      "name": "AutoLogin",
+      "enabled": true,
+      "order": 3,
+      "wait_before_ms": 1500,
+      "description": "Auto login dengan Google"
+    },
+    "task_4": {
+      "name": "ClosePopups",
+      "enabled": true,
+      "order": 4,
+      "wait_before_ms": 2000,
+      "description": "Tutup semua popup (update, maintenance, reward)"
+    },
+    "task_5": {
+      "name": "TakeScreenshot",
+      "enabled": true,
+      "order": 5,
+      "wait_before_ms": 1000,
+      "description": "Screenshot untuk deteksi state"
+    },
+    "task_6": {
+      "name": "CheckAttackReady",
+      "enabled": true,
+      "order": 6,
+      "wait_before_ms": 500,
+      "description": "Cek apakah siap attack"
+    },
+    "task_7": {
+      "name": "CollectResources",
+      "enabled": true,
+      "order": 7,
+      "wait_before_ms": 1000,
+      "description": "Kumpulkan resource sebelum attack"
+    },
+    "task_8": {
+      "name": "StartAutoAttack",
+      "enabled": true,
+      "order": 8,
+      "wait_before_ms": 2000,
+      "description": "Mulai proses attack otomatis"
+    }
+  },
+
+  "popup_handling_poco_x3": {
+    "close_all_popups": true,
+    "popup_timeout_ms": 5000,
+    "popups": [
+      {
+        "name": "UpdateAvailable",
+        "enabled": true,
+        "keywords": ["Update", "New Version", "Download"],
+        "button_location": "bottom_right",
+        "tap_coordinates": {"x": 450, "y": 2100},
+        "button_text": "Later",
+        "wait_before_ms": 500
+      },
+      {
+        "name": "MaintenanceNotice",
+        "enabled": true,
+        "keywords": ["Maintenance", "Server Down", "Update in progress"],
+        "button_location": "center",
+        "tap_coordinates": {"x": 540, "y": 1800},
+        "button_text": "OK",
+        "wait_before_ms": 1000
+      },
+      {
+        "name": "RewardClaim",
+        "enabled": true,
+        "keywords": ["Congratulations", "Season Rewards", "Claim"],
+        "button_location": "center",
+        "tap_coordinates": {"x": 540, "y": 1800},
+        "button_text": "Claim",
+        "wait_before_ms": 500
+      },
+      {
+        "name": "WelcomeBack",
+        "enabled": true,
+        "keywords": ["Welcome Back", "Missing you"],
+        "button_location": "center",
+        "tap_coordinates": {"x": 540, "y": 1800},
+        "button_text": "OK",
+        "wait_before_ms": 500
+      },
+      {
+        "name": "GemOffer",
+        "enabled": true,
+        "keywords": ["Special Offer", "Limited Time", "Gems"],
+        "button_location": "top_right",
+        "tap_coordinates": {"x": 1000, "y": 150},
+        "button_text": "X",
+        "wait_before_ms": 300
+      },
+      {
+        "name": "BuilderBase",
+        "enabled": false,
+        "keywords": ["Builder Base", "Switch Village"],
+        "button_location": "center",
+        "tap_coordinates": {"x": 540, "y": 1800},
+        "button_text": "OK",
+        "wait_before_ms": 500
+      }
+    ]
+  },
+
+  "screen_detection": {
+    "screenshot_on_open": true,
+    "screenshot_path": "/sdcard/Tasker/COC_Screenshots/",
+    "screenshot_quality": 85,
+    "use_ocr": false,
+    "use_image_match": true,
+    "detect_screen_states": {
+      "login_screen": {
+        "keywords": ["Login", "Google", "Supercell ID"],
+        "action": "perform_login"
+      },
+      "home_screen": {
+        "keywords": ["Find a Clash", "Battle", "Attack"],
+        "action": "ready_to_attack"
+      },
+      "attacking": {
+        "keywords": ["Attacking", "Deploying", "War"],
+        "action": "monitor_attack"
+      },
+      "searching": {
+        "keywords": ["Searching", "Finding opponent", "Loading"],
+        "action": "wait_for_opponent"
+      },
+      "in_village": {
+        "keywords": ["My Village", "Home"],
+        "action": "collect_and_prepare"
+      },
+      "maintenance": {
+        "keywords": ["Maintenance", "Under maintenance", "Server"],
+        "action": "notify_and_wait"
+      }
+    }
+  },
+
+  "auto_actions": {
+    "collect_resources": {
+      "enabled": true,
+      "order": 1,
+      "actions": [
+        {
+          "name": "Tap Gold Collector",
+          "coordinates": {"x": 150, "y": 350},
+          "wait_ms": 300
+        },
+        {
+          "name": "Tap Elixir Collector",
+          "coordinates": {"x": 930, "y": 350},
+          "wait_ms": 300
+        },
+        {
+          "name": "Tap DE Collector",
+          "coordinates": {"x": 540, "y": 1500},
+          "wait_ms": 300
+        }
+      ]
+    },
+    "claim_rewards": {
+      "enabled": true,
+      "order": 2,
+      "actions": [
+        {
+          "name": "Check Achievements",
+          "coordinates": {"x": 540, "y": 2100},
+          "wait_ms": 500
+        },
+        {
+          "name": "Claim Season Rewards",
+          "coordinates": {"x": 540, "y": 1800},
+          "wait_ms": 500
+        }
+      ]
+    }
+  },
+
+  "conditions_to_attack": {
+    "check_before_attack": true,
+    "conditions": [
+      {
+        "name": "IsNotInAttack",
+        "enabled": true,
+        "check_method": "screen_detection"
+      },
+      {
+        "name": "ArmyReady",
+        "enabled": true,
+        "min_troops_percentage": 80
+      },
+      {
+        "name": "NoShield",
+        "enabled": true,
+        "check_method": "screen_detection"
+      },
+      {
+        "name": "AttacksNotMaxed",
+        "enabled": true,
+        "max_per_day": 20
+      },
+      {
+        "name": "NotInMaintenance",
+        "enabled": true,
+        "check_method": "screen_detection"
+      }
+    ]
+  },
+
+  "attack_strategy": {
+    "strategy_name": "BARCH_Farm",
+    "troop_composition": {
+      "barbarian": 30,
+      "archer": 30,
+      "goblin": 10,
+      "giant": 5,
+      "total": 75
+    },
+    "deployment_order": [
+      {"troop": "barbarian", "count": 30, "wait_ms": 100},
+      {"troop": "archer", "count": 30, "wait_ms": 100},
+      {"troop": "goblin", "count": 10, "wait_ms": 100},
+      {"troop": "giant", "count": 5, "wait_ms": 100}
+    ],
+    "spell_support": {
+      "healing_spell": 2,
+      "deploy_when": "low_hp_units"
+    },
+    "attack_duration_max_ms": 180000
+  },
+
+  "logging_poco_x3": {
+    "log_enabled": true,
+    "log_file": "/sdcard/Tasker/Logs/coc_app_launch.log",
+    "log_level": "DEBUG",
+    "include_device_info": true,
+    "log_entries": [
+      "[%TIME%] App opened on Poco X3",
+      "[%TIME%] Screen resolution: 1080x2400",
+      "[%STATE%] Current game state: %STATE%",
+      "[%COORDS%] Tap coordinates: %X%,%Y%",
+      "[%RESULT%] Action result: %SUCCESS%"
+    ]
+  },
+
+  "notifications": {
+    "notify_on_app_open": true,
+    "notification_channel": "coc_auto_attack_foreground",
+    "messages": {
+      "app_opened": "✅ COC dibuka",
+      "game_loaded": "🎮 Game loaded",
+      "login_checking": "🔐 Login...",
+      "ready_to_attack": "⚔️ Siap attack!",
+      "attack_started": "🚀 Attack mulai",
+      "attack_finished": "✨ Attack selesai",
+      "error": "❌ Error - cek log"
+    },
+    "use_foreground_service": true,
+    "notification_priority": "high"
+  },
+
+  "android_12_specific": {
+    "use_foreground_service": true,
+    "bypass_battery_restrictions": true,
+    "request_exact_alarm": true,
+    "use_accessibility_service": true,
+    "disable_doze_mode": true,
+    "keep_device_awake": true,
+    "use_wake_lock": "PARTIAL",
+    "permissions_required": [
+      "android.permission.INTERNET",
+      "android.permission.FOREGROUND_SERVICE",
+      "android.permission.SCHEDULE_EXACT_ALARM",
+      "android.permission.READ_EXTERNAL_STORAGE",
+      "android.permission.WRITE_EXTERNAL_STORAGE",
+      "android.permission.ACCESS_NETWORK_STATE"
+    ]
+  },
+
+  "performance_poco_x3": {
+    "cpu_cores": 8,
+    "ram_gb": 6,
+    "optimization": true,
+    "reduce_cpu_usage": false,
+    "use_gpu_acceleration": false,
+    "screenshot_interval_ms": 2000,
+    "tap_duration_ms": 150,
+    "action_delay_ms": 500
+  }
+}
