@@ -1,0 +1,59 @@
+{
+  "app": {
+    "name": "COC Auto Attack Tasker",
+    "version": "1.0.0",
+    "debug": false,
+    "log_level": "info"
+  },
+  "account": {
+    "username": "your_coc_username",
+    "password": "your_coc_password",
+    "server": "us",
+    "device_name": "Android Device"
+  },
+  "device": {
+    "screen_width": 1080,
+    "screen_height": 2400,
+    "density": 420,
+    "orientation": "portrait",
+    "lock_screen": false
+  },
+  "attack": {
+    "mode": "normal",
+    "max_attacks_per_day": 20,
+    "target_min_trophies": 1500,
+    "target_max_trophies": 2200,
+    "preferred_layout": "farm",
+    "skip_if_full_storage": true,
+    "use_barracks": true,
+    "use_dark_elixir": false
+  },
+  "automation": {
+    "start_delay_seconds": 2,
+    "retry_attempts": 3,
+    "check_interval_seconds": 5,
+    "timeout_seconds": 30,
+    "restart_after_crash": true
+  },
+  "targets": [
+    {
+      "name": "farm_target_1",
+      "village_type": "home",
+      "base_id": "example_base_id",
+      "priority": 1,
+      "enabled": true
+    }
+  ],
+  "notifications": {
+    "telegram_enabled": false,
+    "telegram_bot_token": "",
+    "telegram_chat_id": "",
+    "email_enabled": false,
+    "email_address": ""
+  },
+  "paths": {
+    "log_dir": "logs",
+    "screenshot_dir": "screenshots",
+    "output_dir": "output"
+  }
+}
