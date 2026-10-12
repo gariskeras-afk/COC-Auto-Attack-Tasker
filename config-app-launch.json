@@ -1,0 +1,315 @@
+{
+  "app_launch": {
+    "enabled": true,
+    "trigger_on_app_open": true,
+    "app_package": "com.supercell.clashofclans",
+    "app_activity": ".GameActivity",
+    "launch_delay_ms": 3000,
+    "wait_for_load_complete": true,
+    "load_timeout_ms": 30000
+  },
+  
+  "initialization": {
+    "check_login_status": true,
+    "auto_login": true,
+    "login_method": "google",
+    "google_email": "your_google_email@gmail.com",
+    "google_password": "your_google_password",
+    "login_timeout_ms": 15000,
+    "verify_game_loaded": true,
+    "check_for_updates": false,
+    "close_popups": true
+  },
+
+  "on_app_open_tasks": {
+    "task_1": {
+      "name": "CheckGameState",
+      "enabled": true,
+      "order": 1,
+      "wait_before_ms": 2000,
+      "description": "Cek apakah game sudah fully loaded"
+    },
+    "task_2": {
+      "name": "ClosePopups",
+      "enabled": true,
+      "order": 2,
+      "wait_before_ms": 1000,
+      "description": "Tutup popup maintenance/reward/update"
+    },
+    "task_3": {
+      "name": "DetectScreen",
+      "enabled": true,
+      "order": 3,
+      "wait_before_ms": 500,
+      "description": "Screenshot dan deteksi state game"
+    },
+    "task_4": {
+      "name": "CheckAttackAvailability",
+      "enabled": true,
+      "order": 4,
+      "wait_before_ms": 1000,
+      "description": "Cek apakah bisa attack sekarang"
+    },
+    "task_5": {
+      "name": "StartAutoAttack",
+      "enabled": true,
+      "order": 5,
+      "wait_before_ms": 2000,
+      "description": "Mulai proses auto attack"
+    }
+  },
+
+  "screen_detection": {
+    "screenshot_on_open": true,
+    "screenshot_path": "/sdcard/Tasker/COC_Screenshots/",
+    "screenshot_prefix": "open_",
+    "screenshot_quality": 90,
+    "detect_screen_state": {
+      "home_screen": {
+        "keywords": ["Find a Clash!", "Start button visible"],
+        "action": "ready_to_attack"
+      },
+      "attacking": {
+        "keywords": ["Attacking", "Deploying troops"],
+        "action": "monitor_attack"
+      },
+      "searching": {
+        "keywords": ["Searching", "Finding opponent"],
+        "action": "wait_for_target"
+      },
+      "in_village": {
+        "keywords": ["My Village", "Home screen"],
+        "action": "collect_resources"
+      },
+      "maintenance": {
+        "keywords": ["Maintenance", "Server down"],
+        "action": "notify_maintenance"
+      },
+      "update_required": {
+        "keywords": ["Update required", "New version"],
+        "action": "notify_update"
+      }
+    }
+  },
+
+  "auto_actions_on_open": {
+    "collect_resources": {
+      "enabled": true,
+      "order": 1,
+      "tap_delay_ms": 500,
+      "collect_gold": true,
+      "collect_elixir": true,
+      "collect_dark_elixir": true,
+      "collect_gems": true
+    },
+    "claim_rewards": {
+      "enabled": true,
+      "order": 2,
+      "check_for_mail": true,
+      "claim_achievement": true,
+      "claim_season_rewards": true
+    },
+    "check_clan": {
+      "enabled": true,
+      "order": 3,
+      "visit_clan_castle": false,
+      "check_war_status": false,
+      "request_troops": false
+    },
+    "update_stats": {
+      "enabled": true,
+      "order": 4,
+      "read_gold_amount": true,
+      "read_elixir_amount": true,
+      "read_de_amount": true,
+      "read_trophies": true,
+      "read_level": true
+    }
+  },
+
+  "popup_handling": {
+    "close_all_popups": true,
+    "popup_timeout_ms": 5000,
+    "popups": [
+      {
+        "name": "UpdateAvailable",
+        "enabled": true,
+        "button_text": "Later",
+        "tap_coordinates": {"x": 450, "y": 2100}
+      },
+      {
+        "name": "MaintenanceNotice",
+        "enabled": true,
+        "button_text": "OK",
+        "tap_coordinates": {"x": 540, "y": 1800}
+      },
+      {
+        "name": "RewardClaim",
+        "enabled": true,
+        "button_text": "Claim",
+        "tap_coordinates": {"x": 540, "y": 1800}
+      },
+      {
+        "name": "WelcomeBack",
+        "enabled": true,
+        "button_text": "OK",
+        "tap_coordinates": {"x": 540, "y": 1800}
+      },
+      {
+        "name": "GemOffer",
+        "enabled": true,
+        "button_text": "Close/X",
+        "tap_coordinates": {"x": 950, "y": 300}
+      },
+      {
+        "name": "ClanChat",
+        "enabled": false,
+        "button_text": "OK",
+        "tap_coordinates": {"x": 540, "y": 1800}
+      }
+    ]
+  },
+
+  "conditions_to_start_attack": {
+    "check_all_conditions": true,
+    "required_conditions": [
+      {
+        "name": "IsNotInAttack",
+        "enabled": true,
+        "description": "Tidak sedang dalam pertarungan"
+      },
+      {
+        "name": "HasEnoughArmy",
+        "enabled": true,
+        "required_troops": 80,
+        "description": "Army sudah terisi cukup"
+      },
+      {
+        "name": "NoShield",
+        "enabled": true,
+        "description": "Tidak ada shield/protection active"
+      },
+      {
+        "name": "IsNotUnderAttack",
+        "enabled": true,
+        "description": "Base tidak sedang diserang"
+      },
+      {
+        "name": "TodayAttacksNotMax",
+        "enabled": true,
+        "max_attacks": 20,
+        "description": "Belum mencapai limit attack harian"
+      },
+      {
+        "name": "IsNotInMaintenance",
+        "enabled": true,
+        "description": "Server tidak sedang maintenance"
+      },
+      {
+        "name": "StorageNotFull",
+        "enabled": false,
+        "description": "Storage tidak penuh"
+      }
+    ]
+  },
+
+  "tasker_profile_trigger": {
+    "enabled": true,
+    "trigger_type": "app_launch",
+    "trigger_app": "com.supercell.clashofclans",
+    "profile_name": "COC_On_Open",
+    "parallel_execution": false,
+    "abort_existing_task": false,
+    "queue_tasks": true
+  },
+
+  "variables_on_app_open": {
+    "app_open_time": "%TIME()",
+    "app_open_timestamp": "%TIMES()",
+    "coc_state": "initialized",
+    "last_action": "app_opened",
+    "session_start": "%TIMES()",
+    "ready_to_attack": false,
+    "screen_detected": false,
+    "login_required": false
+  },
+
+  "logging": {
+    "log_app_open_events": true,
+    "log_file": "/sdcard/Tasker/Logs/coc_app_launch.log",
+    "log_format": "[%TIME%] [APP_OPEN] %MESSAGE%",
+    "verbose": true,
+    "include_screenshots": true,
+    "include_screen_state": true
+  },
+
+  "notifications": {
+    "notify_on_app_open": true,
+    "notify_when_ready": true,
+    "notification_title": "COC Auto Attack",
+    "notification_messages": {
+      "app_opened": "✅ COC opened - Initializing...",
+      "login_checking": "🔐 Checking login status...",
+      "game_loaded": "🎮 Game fully loaded",
+      "ready_to_attack": "⚔️ Ready to attack!",
+      "conditions_not_met": "⚠️ Not ready - conditions not met",
+      "maintenance_detected": "🔧 Maintenance detected",
+      "error_occurred": "❌ Error occurred"
+    },
+    "telegram_on_open": false,
+    "telegram_bot_token": "",
+    "telegram_chat_id": ""
+  },
+
+  "screen_coordinates": {
+    "screen_width": 1080,
+    "screen_height": 2400,
+    "home_button": {"x": 540, "y": 2100},
+    "attack_button": {"x": 540, "y": 1800},
+    "collect_gold": {"x": 150, "y": 400},
+    "collect_elixir": {"x": 900, "y": 400},
+    "collect_de": {"x": 540, "y": 1500},
+    "clan_button": {"x": 900, "y": 2100},
+    "profile_button": {"x": 150, "y": 200}
+  },
+
+  "error_handling": {
+    "on_app_open_error": {
+      "retry_count": 3,
+      "retry_delay_ms": 5000,
+      "fallback_action": "notify_user",
+      "restart_app_on_fail": true
+    },
+    "login_error": {
+      "retry_count": 2,
+      "retry_delay_ms": 10000,
+      "manual_login_prompt": true
+    },
+    "detection_error": {
+      "retry_count": 3,
+      "use_manual_mode": true,
+      "notify_user": true
+    }
+  },
+
+  "advanced": {
+    "use_accessibility_service": true,
+    "use_screen_capture": true,
+    "use_ocr_detection": false,
+    "use_touch_gestures": false,
+    "enable_wake_lock": true,
+    "keep_screen_on": true,
+    "allow_parallel_tasks": false,
+    "max_retry_attempts": 3,
+    "timeout_per_action": 5000
+  },
+
+  "timing": {
+    "app_launch_handler_delay": 1000,
+    "wait_for_game_load": 3000,
+    "wait_between_actions": 500,
+    "wait_after_popup_close": 1000,
+    "wait_before_screenshot": 1000,
+    "overall_init_timeout": 30000
+  }
+}
