@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TaskerProject>
+  <ProjectName>COC_Auto_Attack_Poco_X3</ProjectName>
+  <ProjectVersion>1.0</ProjectVersion>
+  <Device>
+    <Model>Poco X3 NFC</Model>
+    <Android>12</Android>
+    <ScreenWidth>1080</ScreenWidth>
+    <ScreenHeight>2400</ScreenHeight>
+    <Density>420</Density>
+  </Device>
+
+  <Variables>
+    <Variable name="%coc_enabled" value="1" />
+    <Variable name="%coc_state" value="idle" />
+    <Variable name="%coc_attacks_today" value="0" />
+    <Variable name="%coc_gold" value="0" />
+    <Variable name="%coc_elixir" value="0" />
+    <Variable name="%coc_de" value="0" />
+  </Variables>
+
+  <Profiles>
+    <Profile name="COC_App_Open" type="App">
+      <Package>com.supercell.clashofclans</Package>
+      <Task>COC_OnOpen</Task>
+    </Profile>
+  </Profiles>
+
+  <Tasks>
+    <Task name="COC_OnOpen">
+      <Action type="LogEntry">
+        <Text>[%TIME] COC App Opened</Text>
+        <File>/sdcard/Tasker/Logs/coc_app_launch.log</File>
+      </Action>
+      <Action type="Wait">
+        <Milliseconds>3000</Milliseconds>
+      </Action>
+      <Action type="VariableSet">
+        <Name>%coc_state</Name>
+        <Value>opened</Value>
+      </Action>
+      <Action type="TakeScreenshot">
+        <Path>/sdcard/Tasker/COC_Screenshots/current.png</Path>
+      </Action>
+      <Action type="PerformTask">
+        <TaskName>COC_ClosePopups</TaskName>
+      </Action>
+      <Action type="PerformTask">
+        <TaskName>COC_CollectResources</TaskName>
+      </Action>
+      <Action type="PerformTask">
+        <TaskName>COC_StartAttack</TaskName>
+      </Action>
+    </Task>
+
+    <Task name="COC_ClosePopups">
+      <Action type="LogEntry">
+        <Text>[%TIME] Closing popup...</Text>
+        <File>/sdcard/Tasker/Logs/coc_app_launch.log</File>
+      </Action>
+      <Action type="Wait">
+        <Milliseconds>1000</Milliseconds>
+      </Action>
+      <Action type="Tap">
+        <X>450</X>
+        <Y>2100</Y>
+        <Duration>150</Duration>
+      </Action>
+      <Action type="Wait">
+        <Milliseconds>1000</Milliseconds>
+      </Action>
+      <Action type="Tap">
+        <X>540</X>
+        <Y>1800</Y>
+        <Duration>150</Duration>
+      </Action>
+      <Action type="Wait">
+        <Milliseconds>1000</Milliseconds>
+      </Action>
+    </Task>
+
+    <Task name="COC_CollectResources">
+      <Action type="LogEntry">
+        <Text>[%TIME] Collecting resources...</Text>
+        <File>/sdcard/Tasker/Logs/coc_app_launch.log</File>
+      </Action>
+      <Action type="Tap">
+        <X>150</X>
+        <Y>350</Y>
+        <Duration>150</Duration>
+      </Action>
+      <Action type="Wait">
+        <Milliseconds>300</Milliseconds>
+      </Action>
+      <Action type="Tap">
+        <X>930</X>
+        <Y>350</Y>
+        <Duration>150</Duration>
+      </Action>
+      <Action type="Wait">
+        <Milliseconds>300</Milliseconds>
+      </Action>
+      <Action type="Tap">
+        <X>540</X>
+        <Y>1500</Y>
+        <Duration>150</Duration>
+      </Action>
+      <Action type="Wait">
+        <Milliseconds>500</Milliseconds>
+      </Action>
+    </Task>
+
+    <Task name="COC_StartAttack">
+      <Action type="LogEntry">
+        <Text>[%TIME] Checking attack conditions...</Text>
+        <File>/sdcard/Tasker/Logs/coc_app_launch.log</File>
+      </Action>
+      <Action type="If">
+        <Condition>%coc_enabled ~ 1</Condition>
+        <Then>
+          <Action type="Tap">
+            <X>540</X>
+            <Y>2330</Y>
+            <Duration>150</Duration>
+          </Action>
+          <Action type="Wait">
+            <Milliseconds>3000</Milliseconds>
+          </Action>
+          <Action type="Tap">
+            <X>540</X>
+            <Y>2200</Y>
+            <Duration>150</Duration>
+          </Action>
+          <Action type="Wait">
+            <Milliseconds>2000</Milliseconds>
+          </Action>
+          <Action type="Tap">
+            <X>540</X>
+            <Y>1800</Y>
+            <Duration>150</Duration>
+          </Action>
+          <Action type="VariableSet">
+            <Name>%coc_state</Name>
+            <Value>attacking</Value>
+          </Action>
+          <Action type="VariableAdd">
+            <Name>%coc_attacks_today</Name>
+            <Value>1</Value>
+          </Action>
+        </Then>
+      </Action>
+    </Task>
+  </Tasks>
+
+  <Folders>
+    <Folder>/sdcard/Tasker/</Folder>
+    <Folder>/sdcard/Tasker/Logs/</Folder>
+    <Folder>/sdcard/Tasker/COC_Screenshots/</Folder>
+    <Folder>/sdcard/Tasker/Backups/</Folder>
+  </Folders>
+</TaskerProject>
